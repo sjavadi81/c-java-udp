@@ -11,10 +11,10 @@ int main()
 {
     // ---- CONFIG ----
     const std::string localBindIp = "0.0.0.0";      // receive on all interfaces
-    const uint16_t    recvPort    = 30002;          // local receive port (your requirement)
-
     const std::string remoteIp    = "172.31.1.147"; // other client
-    const uint16_t    sendPort    = 30001;          // remote receive port (your requirement)
+
+const uint16_t recvPort = 30001;   // PC receives here
+const uint16_t sendPort = 30002;   // Robot receives here
 
     const std::size_t rxBufferSize = 2048;
     const auto endian = UdpDoubleReceiver::Endian::Big; // MUST match sender packing (BE)
@@ -33,7 +33,7 @@ int main()
     UdpDoubleSender sender(
         remoteIp,                    // remoteHost
         sendPort,                    // remotePort
-        recvPort,                    // localPort (bind sender socket to 30002)
+        0,                    // localPort = ephemeral (do NOT bind)
         maxDoubles,                  // maxDoubles
         true,                       // connectUdp
         UdpDoubleSender::DEFAULT_MAX_UDP_PAYLOAD,

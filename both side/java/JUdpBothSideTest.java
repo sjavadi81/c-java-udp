@@ -10,10 +10,11 @@ import java.nio.ByteOrder;
 
 public class JUdpBothSideTest extends RoboticsAPIApplication {
 
-    private static final int RECV_PORT = 30002;           // robot listens here
-    private static final String REMOTE_IP = "172.31.1.147";
-    private static final int SEND_PORT = 30001;           // PC listens here
+    private static final String REMOTE_IP = "172.31.1.150";
     private static final int MAX_DOUBLES = 64;
+    
+    private static final int RECV_PORT = 30002; // robot listens here
+    private static final int SEND_PORT = 30001; // PC listens here
     // ------------------------------------------------
 
     private UdpDoubleReceiver receiver;
@@ -44,7 +45,7 @@ public class JUdpBothSideTest extends RoboticsAPIApplication {
             sender = new UdpDoubleSender(
                     REMOTE_IP,
                     SEND_PORT,
-                    RECV_PORT,          // bind local port = 30002
+                    0,          // local port = ephemeral (do NOT bind)
                     MAX_DOUBLES,
                     ByteOrder.BIG_ENDIAN,
                     true,
